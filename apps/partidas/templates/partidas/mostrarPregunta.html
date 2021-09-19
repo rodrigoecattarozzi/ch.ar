@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- {{request.user.username}} está jugando
+{% endblock %}
+
+{% block contenido %}
+
+<div class="row center">
+	{% if contador %}
+	<div class="col s12 m10 offset-m1">
+		<h4 class="light">Ya Respondiste 5 preguntas de esta categoría, por favor seleccione otra.</h4>
+		<a href="{% url 'home' %}" class="btn-large waves-effect waves-light"><i class="material-icons">arrow_forward</i>
+		</a>
+	</div>
+	{% else %}
+		{% if respuesta %}
+			{% if categoria.nombre == 'CULTURA Y ARTE' %}
+			<div class="row center">
+    			<div class="col s12 m6 offset-m3">
+        			<img class="responsive-img" src="{% static 'img/artes.png' %}" alt="">
+    			</div>
+			</div>
+			{% elif categoria.nombre == 'HISTORIA' %}
+			<div class="row center">
+    			<div class="col s12 m6 offset-m3">
+        			<img class="responsive-img" src="{% static 'img/historia.png' %}" alt="">
+    			</div>
+			</div>
+			{% elif categoria.nombre == 'DEPORTE' %}
+			<div class="row center">
+    			<div class="col s12 m6 offset-m3">
+        			<img class="responsive-img" src="{% static 'img/deportes.png' %}" alt="">
+    			</div>
+			</div>
+			{% elif categoria.nombre == 'GEOGRAFIA' %}
+			<div class="row center">
+    			<div class="col s12 m6 offset-m3">
+        			<img class="responsive-img" src="{% static 'img/geografia.png' %}" alt="">
+    			</div>
+			</div>
+			{% elif categoria.nombre == 'ECONOMIA' %}
+			<div class="row center">
+    			<div class="col s12 m6 offset-m3">
+        			<img class="responsive-img" src="{% static 'img/economia.png' %}" alt="">
+    			</div>
+			</div>
+			{% elif categoria.nombre == 'CIENCIA Y EDUCACION' %}
+			<div class="row center">
+    			<div class="col s12 m6 offset-m3">
+        			<img class="responsive-img" src="{% static 'img/educacion.png' %}" alt="">
+    			</div>
+			</div>
+			{% elif categoria.nombre == 'ENTRETENIMIENTO' %}
+			<div class="row center">
+    			<div class="col s12 m6 offset-m3">
+        			<img class="responsive-img" src="{% static 'img/entretenimiento.png' %}" alt="">
+    			</div>
+			</div>
+			{% endif %}
+	<div class="col s12 m8 offset-m2">
+		<h4 class="light">Categoría: {{ categoria.nombre }}</h4>
+	</div>
+	<div class="col s12 m8 offset-m2">
+		<h4 class="light">{{ pregunta.descripcion }}</h4>
+	</div>
+		
+		<div class="col s8 m4 offset-m4">
+			<div class="card-panel">
+			<form action="{% url 'partidas:mostrarResultado' pregunta.id %}" method="POST" name="seleccion">
+				{% csrf_token %}
+				<div class="form-row left-align">
+					<div class="form-group col-12">
+                		<div class="input-group">
+                			<span class="input-group-append">
+                				<div class=" input-group-text bg-transparent">
+								{% for r in respuesta %}
+										<label><input class="checkbox" type="checkbox" name="{{r.id}}" id="{{r.id}}" value="{{r.id}}"/><span>{{r.descripcion}}</span></label><br>
+								{% endfor %}
+							    </div>
+                 	   </span>
+              	  </div>
+          	  </div>        
+       	  </div>
+				<div class="col s12 m10 offset-m1">
+				<br><br>
+		  	  <button type="submit" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Evaluar">
+          	  <i class="fa fa-search"></i>
+          	  </div>
+			</form>
+			</div>
+		</div><br>
+		{% else %}
+		<h4 class="light">No hay respuestas para esta pregunta</h4>
+		{% endif %}
+	{% endif %}
+	
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+                    
+     
+

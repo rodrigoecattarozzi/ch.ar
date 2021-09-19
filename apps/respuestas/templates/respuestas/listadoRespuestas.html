@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block contenido %}
+
+{% block js %}
+<!--BOTON ELIMINAR-->
+<script>
+    function eliminar(id){
+        swal.fire({
+            "title":"¿Está seguro que desea eliminar?",
+            "text":"Esta acción no se puede deshacer",
+            "icon":"question",
+            "showCancelButton":true,
+            "cancelButtonText":"Cancelar",
+            "confirmButtonText":"Eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"darkred",
+            "cancelButtonColor":"#3E00FF",
+        })
+        .then(function(result){
+            if (result.isConfirmed){
+                window.location.href = "/respuestas/eliminar/"+id
+            }
+        })
+    }
+</script>
+{% endblock %}
+
+<div class="row">
+    <h1>Listado de Respuestas</h1>
+    <div class="col-4">
+        <a href="{% url 'respuestas:crear' %}" class="waves-effect waves-light btn-small">
+            <i class="material-icons left">add</i> AGREGAR
+        </a>
+    </div>
+</div>
+
+<!--FILTRO BUSQUEDA DE RESPUESTAS-->
+<div class="card-panel">
+    <form action="/respuestas/buscar/" method="GET">
+        <div class="row">
+            <div class="col s11">
+                <input placeholder="búsqueda" id="criterio" name="criterio" type="text" class="validate">
+            </div>
+            <div class="col s1">
+                <button type="submit" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Buscar">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID de pregunta</th>
+            <th>Respuesta</th>
+            <th>V o F</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if respuestas %}
+            {% for p in respuestas %}
+                <tr>
+                    <td scope="row">{{p.pregunta_id}}</td>
+                    <td scope="row">{{p.descripcion}}</td>
+                    <td scope="row">{{p.correcta}}</td>
+                    <td>
+                        <a href="{% url 'respuestas:modificar' p.id %}" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Editar">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        <!--href="{% url 'respuestas:eliminar' p.id %}"-->
+                        <a onclick="eliminar({{p.id}})" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Eliminar">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        <!--RESULTADO DE BUSQUEDA -->
+        {% elif encontrado %}
+            {% for p in encontrado %}
+                <tr>
+                    <td scope="row">{{p.pregunta_id}}</td>
+                    <td scope="row">{{p.descripcion}}</td>
+                    <td scope="row">{{p.correcta}}</td>
+                    <td>
+                        <a href="{% url 'respuestas:modificar' p.id %}" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Editar">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        <!-- href="{% url 'respuestas:eliminar' p.id %}" -->
+                        <a onclick="eliminar({{p.id}})" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Eliminar">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+
+    </tbody>
+    <div>
+        <label class="result-label" for="">Resultado: {{criterio}}</label>
+    </div>
+</table>
+<hr>
+<br>
+<div class="row">
+    <div class="col s12 right-align">
+        <button class="btn btn-info btn-rnk" href="#">
+            <a href="{% url 'home' %}">
+                <i class="material-icons">arrow_back</i>
+            </a>
+        </button>
+    </div>
+</div>
+
+
+{% endblock %}

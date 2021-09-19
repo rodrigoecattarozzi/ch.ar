@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+- EDITAR PERFIL
+{% endblock %}
+
+{% block contenido %}
+<div class="card-panel">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s12">
+                {{form.username}}
+                <label for="{{field.id_for_label}}">
+                        {{form.username.label}}
+                </label>
+            </div>
+            <div class="row black-text center">
+                {{form.errors}}
+            </div>
+        </div>
+        <div class="row">
+            <a href="{% url 'usuarios:change_password' %}" class="btn waves-effect waves-light" type="submit" name="action">
+                Cambiar Contraseña 
+                <i class="material-icons right">lock</i>
+            </a>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Guardar cambios
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

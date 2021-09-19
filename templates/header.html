@@ -1,0 +1,46 @@
+{% load static %}
+<header>
+    <nav>
+        <div class="nav-wrapper">
+
+            <div class="brand-logo">
+                <a href="{% url 'home' %}">
+                    <img class="logo-header" src="{% static 'img/char-horizontal.png' %}">
+                </a>
+            </div>
+
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <!-- menu largo de arriba en pantalla media y grande -->
+            <ul class="right hide-on-med-and-down">
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'partidas:ranking' %}">RANKING</a></li>
+                <li><a href="{% url 'usuarios:perfil' request.user.id %}">PERFIL</a></li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'categorias:listar' %}">CATEGORÍAS</a></li>
+                <li><a href="{% url 'preguntas:listar' %}">PREGUNTAS</a></li>
+                <li><a href="{% url 'respuestas:listar' %}">RESPUESTAS</a></li>
+                {% endif %}
+                <li><a href="{% url 'usuarios:logout' %}">SALIR</a></li>
+                {% else %}
+                <li><a href="{% url 'usuarios:login' %}">INGRESAR</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- menu hamburguesa en pantalla chica -->
+    <ul class="sidenav" id="mobile-demo">
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'partidas:ranking' %}">RANKING</a></li>
+        <li><a href="{% url 'usuarios:perfil' request.user.id %}">PERFIL</a></li>
+        {% if user.is_superuser %}
+        <li><a href="{% url 'categorias:listar' %}">CATEGORÍAS</a></li>
+        <li><a href="{% url 'preguntas:listar' %}">PREGUNTAS</a></li>
+        <li><a href="{% url 'respuestas:listar' %}">RESPUESTAS</a></li>
+        {% endif %}
+        <li><a href="{% url 'usuarios:logout' %}">SALIR</a></li>
+        {% else %}
+        <li><a href="{% url 'usuarios:login' %}">INGRESAR</a></li>
+        {% endif %}
+    </ul>
+</header>

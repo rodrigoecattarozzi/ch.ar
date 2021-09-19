@@ -1,0 +1,79 @@
+/* footer siempre al pie de página */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #031B25;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+a {
+    color: white;
+}
+
+#centrar {
+    align: center;
+}
+
+header {
+    border-bottom: #03B2FA 3px solid;
+}
+
+.green-flag {
+    color: #1CA658;
+}
+
+.card-panel {
+    background-color: #9BDAF2!important;
+}
+
+.logo-home {
+    width: 100%;
+    padding: 0%;
+}
+
+.logo-header {
+    height: 60px;
+}
+
+.margen-lados {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.page-footer {
+    padding-bottom: 16px;
+}
+
+.btn-ancho {
+    width: 100%!important;
+}
+
+tr {
+    border-bottom: 1px solid #F2B749;
+}
+
+.btn-rnk {
+    margin-top: 20px;
+}
+
+.result-label {
+    color: #9BDAF2;
+}
+
+.logo-footer{
+    height: 30px;
+}
+
+
+.cat-botones{
+    width: 50%;
+}
+
+.btn-inicio{
+    margin: 20px;
+}

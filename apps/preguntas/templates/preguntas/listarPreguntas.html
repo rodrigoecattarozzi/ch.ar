@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block contenido %}
+
+{% block js %}
+<!--BOTON ELIMINAR-->
+<script>
+    function eliminar(id){
+        swal.fire({
+            "title":"¿Está seguro que desea eliminar?",
+            "text":"Esta acción no se puede deshacer",
+            "icon":"question",
+            "showCancelButton":true,
+            "cancelButtonText":"Cancelar",
+            "confirmButtonText":"Eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"darkred",
+            "cancelButtonColor":"#3E00FF",
+        })
+        .then(function(result){
+            if (result.isConfirmed){
+                window.location.href = "/preguntas/eliminar/"+id
+            }
+        })
+    }
+    
+</script>
+{% endblock %}
+
+<div class="row">
+    <h1>Listado de Preguntas</h1>
+    <div class="col-4">
+        <a href="{% url 'preguntas:crear'%}" class="waves-effect waves-light btn-small">
+            <i class="material-icons left">add</i> AGREGAR
+        </a>
+    </div>
+</div>
+<!--FILTRO BUSQUEDA DE PREGUNTAS-->
+<div class="card-panel">
+    <form action="/preguntas/buscar/" method="GET">
+        <div class="row">
+            <div class="col s11">
+                <input placeholder="búsqueda" id="criterio" name="criterio" type="text" class="validate">
+            </div>
+            <div class="col s1">
+                <button type="submit" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Buscar">
+                        <i class="material-icons">search</i>
+                    </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Pregunta</th>
+            <th>Categoria</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if preguntas %}
+            {% for p in preguntas %}
+                <tr>
+                    <td scope="row">{{p.id}}</td>
+                    <td scope="row">{{p.descripcion}}</td>
+                    <td scope="row">{{p.categoria.nombre}}</td>
+                    <td>
+                        <a href="{% url 'preguntas:modificar' p.id %}" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Editar">
+                            <i class="material-icons">edit</i>
+                        </a>
+                       <!-- href="{% url 'preguntas:eliminar' p.id %}" -->
+                        <a onclick="eliminar({{p.id}})" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Eliminar">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        <!--FILTRO DE BUSQUEDA -->
+        {% elif encontrado %}
+            {% for p in encontrado %}
+                <tr>
+                    <td scope="row">{{p.id}}</td>
+                    <td scope="row">{{p.descripcion}}</td>
+                    <td scope="row">{{p.categoria.nombre}}</td>
+                    <td>
+                        <a href="{% url 'preguntas:modificar' p.id %}" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Editar">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        <!--href="{% url 'preguntas:eliminar' p.id %}"-->
+                        <a onclick="eliminar({{p.id}})" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Eliminar">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+
+    </tbody>
+    <div>
+        <label class="result-label" for="">Resultado: {{criterio}}</label>
+    </div>
+</table>
+<hr>
+<br>
+<div class="row">
+    <div class="col s12 right-align">
+        <button class="btn btn-info btn-rnk" href="#">
+            <a href="{% url 'home' %}">
+                <i class="material-icons">arrow_back</i>
+            </a>
+        </button>
+    </div>
+</div>
+
+{% endblock %}

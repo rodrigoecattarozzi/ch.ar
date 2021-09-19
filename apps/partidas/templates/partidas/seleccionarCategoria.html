@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+- Seleccionar Categoría
+{% endblock %}
+
+{% block contenido %}
+
+<div class="row center">
+	<div class="col s12 m8 offset-m2">
+		<h4 class="light">Seleccionar Categoría</h4>
+	</div>
+</div>
+<div class="row center">
+	{% if categorias %}
+		{% for c in categorias %}
+		<div>
+			<a href="{% url 'partidas:mostrarPregunta' c.id %}" class="btn-large waves-effect waves-light cat-botones">{{c.nombre}}
+			</a>
+		</div><br>
+		{% endfor %}
+	{% endif %}
+</div>
+
+
+{% endblock %}

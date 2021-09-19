@@ -1,0 +1,11 @@
+{% if messages %}
+    {% for message in messages %}
+    <script>
+        swal.fire({
+            "title":"Felicitaciones!",
+            "text": "{{message}}",
+            "icon":"success",
+        })
+    </script>
+    {% endfor %}
+{% endif %}

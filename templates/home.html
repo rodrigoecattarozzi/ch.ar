@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- Inicio
+{% endblock %}
+
+{% block contenido %}
+
+<div class="row center">
+    <div class="col s12 m6 offset-m3">
+        <img class="logo-home" src="{% static 'img/char.png' %}" alt="">
+    </div>
+</div>
+<div class="row center">
+    {% if request.user.is_authenticated %}
+    <div class="col s6 offset-s3">
+        <a href="{% url 'partidas:seleccionarCategoria' %}" class="btn-ancho btn-large waves-effect waves-light">
+			Jugar
+		</a>
+    </div>
+    {% else %}
+    <div class="col s8 offset-s2">
+        <div class="col s12 btn-inicio">
+            <a href="{% url 'usuarios:login' %}" class="btn-ancho btn-large waves-effect waves-light">
+				INGRESAR
+			</a>
+        </div>
+        <div class="col s12 btn-inicio">
+            <a href="{% url 'usuarios:register' %}" class="btn-ancho btn-large waves-effect waves-light">
+				REGISTRARSE
+			</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+- {{request.user.username}} está jugando
+{% endblock %}
+
+{% block contenido %}
+{% if respuestas_seleccionadas %}
+	<div class="col s12 m8 offset-m2">
+		<h3 class="light">Puntaje acumulado: {{puntaje}}</h3>
+		{% for r in respuestas_seleccionadas %}
+		<h4 class="light">{{ r.descripcion }}: {% if r.correcta %} <i class="material-icons">check_circle</i> {% else %} <i class="material-icons">cancel</i> {% endif %}</h4>
+		{% endfor %}
+	</div>
+{% else %}
+	<div class="col s12 m8 offset-m2">
+		<h3 class="light">Por favor, seleccioná al menos una respuesta.</h3>
+	</div>
+{% endif %}
+{% if categoria %}
+	<a href="{% url 'partidas:mostrarPregunta' categoria %}" class="btn-large waves-effect waves-light"><i class="material-icons">arrow_forward</i>
+	</a>
+{% endif %}
+{% endblock %}
